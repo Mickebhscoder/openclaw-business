@@ -89,7 +89,7 @@ export default async function LandingPage() {
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <span className="text-sm text-muted-foreground">
-                No credit card required &middot; $9/mo after trial
+                No credit card required &middot; Plans from $49/mo
               </span>
             </div>
           </div>
@@ -268,45 +268,76 @@ export default async function LandingPage() {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
-              Simple pricing
+              Simple, transparent pricing
             </h2>
             <p className="mt-4 text-lg text-muted-foreground">
-              One plan. Everything included. Scale as you grow.
+              Choose the plan that fits your business. Scale up anytime.
             </p>
           </div>
-          <div className="max-w-md mx-auto">
-            <div className="rounded-xl border bg-white shadow-lg p-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+            {/* Starter */}
+            <div className="rounded-xl border bg-white shadow p-8">
               <div className="text-center">
-                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Per instance</p>
+                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Starter</p>
                 <div className="mt-2 flex items-baseline justify-center gap-1">
-                  <span className="text-5xl font-bold tracking-tight">$9</span>
+                  <span className="text-5xl font-bold tracking-tight">$49</span>
                   <span className="text-lg text-muted-foreground">/month</span>
                 </div>
-                <p className="mt-2 text-sm text-muted-foreground">Free trial included</p>
+                <p className="mt-2 text-sm text-muted-foreground">For small teams getting started</p>
               </div>
               <ul className="mt-8 space-y-3 text-sm">
-                <PricingFeature text="Your own isolated container on AWS" />
-                <PricingFeature text="Encrypted API key storage (SSM SecureString)" />
-                <PricingFeature text="Egress-only networking — nothing reaches in" />
-                <PricingFeature text="24/7 uptime on enterprise infrastructure" />
-                <PricingFeature text="Web dashboard to manage all instances" />
-                <PricingFeature text="Launch multiple instances for different clients" />
-                <PricingFeature text="Start, stop, delete anytime — you're in control" />
+                <PricingFeature text="Up to 3 AI agent instances" />
+                <PricingFeature text="Claude Haiku model" />
+                <PricingFeature text="Telegram integration" />
+                <PricingFeature text="Isolated containers on AWS" />
+                <PricingFeature text="Encrypted API key storage" />
+                <PricingFeature text="Email support" />
+              </ul>
+              <div className="mt-8">
+                <Link
+                  href="/login"
+                  className="inline-flex items-center justify-center rounded-md text-sm font-medium h-11 px-8 border border-primary text-primary hover:bg-primary/5 transition-colors w-full gap-2"
+                >
+                  Get Started
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+            {/* Pro */}
+            <div className="rounded-xl border-2 border-primary bg-white shadow-lg p-8 relative">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+                <span className="bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">Most Popular</span>
+              </div>
+              <div className="text-center">
+                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">Pro</p>
+                <div className="mt-2 flex items-baseline justify-center gap-1">
+                  <span className="text-5xl font-bold tracking-tight">$149</span>
+                  <span className="text-lg text-muted-foreground">/month</span>
+                </div>
+                <p className="mt-2 text-sm text-muted-foreground">For growing teams that need more power</p>
+              </div>
+              <ul className="mt-8 space-y-3 text-sm">
+                <PricingFeature text="Unlimited AI agent instances" />
+                <PricingFeature text="Claude Sonnet & Haiku models" />
+                <PricingFeature text="Telegram integration" />
+                <PricingFeature text="Isolated containers on AWS" />
+                <PricingFeature text="Custom system prompts" />
+                <PricingFeature text="Priority support" />
               </ul>
               <div className="mt-8">
                 <Link
                   href="/login"
                   className="inline-flex items-center justify-center rounded-md text-sm font-medium h-11 px-8 bg-primary text-primary-foreground shadow hover:bg-primary/90 transition-colors w-full gap-2"
                 >
-                  Start Free Trial
+                  Get Started
                   <ArrowRight className="h-4 w-4" />
                 </Link>
               </div>
-              <p className="mt-3 text-center text-xs text-muted-foreground">
-                You bring your own Anthropic API key. Usage costs billed directly by Anthropic.
-              </p>
             </div>
           </div>
+          <p className="mt-6 text-center text-xs text-muted-foreground">
+            You bring your own Anthropic API key. Usage costs billed directly by Anthropic.
+          </p>
         </div>
       </section>
 
