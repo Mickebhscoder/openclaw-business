@@ -123,6 +123,22 @@ Three tables: `organizations`, `members`, `openclaw_instances`
 - **Account**: ACCOUNT_ID, us-west-2
 - **Terraform**: In `Molinar-AI/molinar` repo, branch `infra/ecs-migration`, module `infra/modules/openclaw/`
 
+## Stripe Billing Integration
+- **Library**: `stripe` npm package, core functions in `lib/stripe.ts`
+- **Config**: `lib/stripe-config.ts` — plan definitions with environment-aware price IDs
+- **API Routes**:
+  - `POST /api/stripe/create-checkout` — Creates Stripe Checkout session (requires auth)
+  - `POST /api/stripe/create-portal` — Opens Stripe Customer Portal for billing management
+  - `POST /api/webhook/stripe` — Handles Stripe webhook events
+- **Components**:
+  - `components/pricing.tsx` — Pricing cards with plan features
+  - `components/button-checkout.tsx` — Subscribe button that redirects to Stripe Checkout
+  - `components/button-portal.tsx` — Manage Billing button that opens Stripe portal
+- **Pages**: `/dashboard/billing` — Shows pricing (if no subscription) or current plan + manage button
+- **Database**: `organizations` table extended with `customer_id`, `price_id`, `has_access` (migration: `002_add_stripe_billing.sql`)
+- **Webhook Events**: `checkout.session.completed`, `customer.subscription.deleted`, `invoice.paid`, `invoice.payment_failed`
+- **Flow**: Billing is per-organization (B2B). `client_reference_id` is the Stytch org ID, used in webhooks to match organizations.
+
 ## Environment Variables (.env.local)
 ```
 STYTCH_PROJECT_ID          # Stytch B2B project ID
@@ -137,4 +153,6 @@ ECS_CLUSTER_ARN            # Full ARN of openclaw-production cluster
 ECS_TASK_DEFINITION        # Task definition name (openclaw-agent)
 ECS_SUBNETS                # Comma-separated subnet IDs
 ECS_SECURITY_GROUP         # Security group ID for tasks
+STRIPE_SECRET_KEY          # Stripe API secret key
+STRIPE_WEBHOOK_SECRET      # Stripe webhook signing secret
 ```
