@@ -155,4 +155,12 @@ ECS_SUBNETS                # Comma-separated subnet IDs
 ECS_SECURITY_GROUP         # Security group ID for tasks
 STRIPE_SECRET_KEY          # Stripe API secret key
 STRIPE_WEBHOOK_SECRET      # Stripe webhook signing secret
+NEXT_PUBLIC_AMPLITUDE_API_KEY  # Amplitude project API key (public, client-side)
 ```
+
+## Amplitude Analytics
+- **Library**: `@amplitude/analytics-browser` + `@amplitude/plugin-session-replay-browser`
+- **Provider**: `components/amplitude-provider.tsx` — client component, initializes SDK with session replay plugin (100% sample rate)
+- **Init**: Wrapped in root `layout.tsx` via `<AmplitudeProvider>`, autocapture enabled (page views, sessions, form interactions)
+- **Session Replay**: Enabled via `sessionReplayPlugin({ sampleRate: 1 })` — captures all sessions
+- **Project ID**: 777864

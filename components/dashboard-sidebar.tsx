@@ -22,7 +22,7 @@ export function DashboardSidebar({ organization, member }: DashboardSidebarProps
   ];
 
   const handleLogout = async () => {
-    document.cookie = 'stytch_session=; path=/; max-age=0';
+    await fetch('/api/auth/logout', { method: 'POST' });
     router.push('/login');
   };
 
