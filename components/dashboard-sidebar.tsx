@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter } from '@/components/ui/sidebar';
-import { Bot, LayoutDashboard, Plus, LogOut } from 'lucide-react';
+import { Bot, LayoutDashboard, Plus, LogOut, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface DashboardSidebarProps {
@@ -18,6 +18,7 @@ export function DashboardSidebar({ organization, member }: DashboardSidebarProps
   const items = [
     { title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { title: 'New Instance', href: '/dashboard/instances/new', icon: Plus },
+    { title: 'Billing', href: '/dashboard/billing', icon: CreditCard },
   ];
 
   const handleLogout = async () => {
