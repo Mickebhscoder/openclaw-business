@@ -12,10 +12,7 @@ export interface StripePlan {
 export const stripeConfig = {
   plans: [
     {
-      priceId:
-        process.env.NODE_ENV === 'development'
-          ? 'price_dev_starter'
-          : 'price_prod_starter',
+      priceId: 'price_1SyfqQDxlSAqbxCC9TSqzG3j',
       name: 'Starter',
       description: 'For small teams getting started with AI agents',
       price: 49,
@@ -28,10 +25,7 @@ export const stripeConfig = {
       ],
     },
     {
-      priceId:
-        process.env.NODE_ENV === 'development'
-          ? 'price_dev_pro'
-          : 'price_prod_pro',
+      priceId: 'price_1SyfrNDxlSAqbxCCn6AW15ao',
       name: 'Pro',
       description: 'For growing teams that need more power',
       price: 149,
