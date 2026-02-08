@@ -31,6 +31,9 @@ yarn-error.log*
 # vercel
 .vercel
 
+# test artifacts
+/test-screenshots
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
