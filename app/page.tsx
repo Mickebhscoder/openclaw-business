@@ -19,6 +19,9 @@ import {
   Server,
   KeyRound,
   Container,
+  AlertTriangle,
+  ChevronDown,
+  Quote,
 } from 'lucide-react';
 
 export default async function LandingPage() {
@@ -71,14 +74,14 @@ export default async function LandingPage() {
               <span>Secure &middot; Isolated &middot; Enterprise-grade AWS infrastructure</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-              Run your business{' '}
+              Your AI employee.{' '}
               <br className="hidden sm:block" />
-              with a secure AI assistant.{' '}
+              Secure, isolated, always on.{' '}
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              The world&apos;s most popular open-source AI agent, deployed in your own
-              isolated container on AWS. Handle clients, customers, and daily operations
-              through Telegram — without exposing your business data.
+              Stop babysitting servers at 3am. We deploy the world&apos;s most popular
+              open-source AI agent in your own isolated container on AWS. Handle clients,
+              customers, and daily ops through Telegram — without exposing your business data.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
@@ -341,8 +344,115 @@ export default async function LandingPage() {
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* Why Not DIY */}
       <section className="py-20 sm:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              &ldquo;Can&apos;t I just set this up myself?&rdquo;
+            </h2>
+            <p className="mt-4 text-lg text-muted-foreground max-w-2xl mx-auto">
+              You can. Most people try. Here&apos;s what they discover.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <div className="rounded-xl border border-red-100 bg-red-50/50 p-6 text-center">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 text-red-600 mb-4">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <h3 className="font-semibold">Setup takes hours</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                VPS, SSH, Docker, Tailscale, SSL certs, firewall rules. One wrong config and your agent crashes at 3am.
+              </p>
+            </div>
+            <div className="rounded-xl border border-red-100 bg-red-50/50 p-6 text-center">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 text-red-600 mb-4">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <h3 className="font-semibold">Security is your problem</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Shared VPS hosts are already getting exploited. Your client data on a $9 server with no isolation? That&apos;s a liability.
+              </p>
+            </div>
+            <div className="rounded-xl border border-red-100 bg-red-50/50 p-6 text-center">
+              <div className="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-red-100 text-red-600 mb-4">
+                <AlertTriangle className="h-5 w-5" />
+              </div>
+              <h3 className="font-semibold">Maintenance never ends</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
+                Updates break things. Cron jobs fail silently. SSH tunnels drop. You wanted an AI employee, not a second job.
+              </p>
+            </div>
+          </div>
+          <div className="mt-12 text-center">
+            <p className="text-lg font-medium text-foreground">
+              We handle all of this. You just click &ldquo;Launch.&rdquo;
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Proof / Testimonials */}
+      <section className="py-16 sm:py-20 bg-muted/30 border-y">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="rounded-xl bg-white border p-6">
+              <Quote className="h-5 w-5 text-primary/40 mb-3" />
+              <p className="text-sm text-foreground leading-relaxed italic">
+                &ldquo;It designed my entire go-to-market strategy, manages my PR pipeline, and replaced what would&apos;ve been a 5-person team.&rdquo;
+              </p>
+              <p className="mt-3 text-xs text-muted-foreground">— OpenClaw user running on a single machine</p>
+            </div>
+            <div className="rounded-xl bg-white border p-6">
+              <Quote className="h-5 w-5 text-primary/40 mb-3" />
+              <p className="text-sm text-foreground leading-relaxed italic">
+                &ldquo;I fully autonomized money making. I have not physically touched any marketing for my apps for a week. Money is coming in.&rdquo;
+              </p>
+              <p className="mt-3 text-xs text-muted-foreground">— AI-first founder, 29 days autonomous</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="py-20 sm:py-28">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+              Frequently asked questions
+            </h2>
+          </div>
+          <div className="space-y-6">
+            <FaqItem
+              question="Do I need technical knowledge?"
+              answer="No. If you can create a Telegram bot (we walk you through it) and paste an API key, you're good. No servers, no Docker, no terminal."
+            />
+            <FaqItem
+              question="What are the API costs on top of the subscription?"
+              answer="You bring your own Anthropic API key (BYOK). API usage is billed directly by Anthropic — typically $5-50/month depending on how much your agent works. We never mark up your API costs."
+            />
+            <FaqItem
+              question="Is my business data safe?"
+              answer="Each instance runs in its own isolated container on AWS Fargate with egress-only networking. Your API keys are encrypted with AWS SSM. We never access your conversations or data."
+            />
+            <FaqItem
+              question="Can I use models other than Claude?"
+              answer="We currently support Claude Haiku (Starter) and Claude Sonnet + Haiku (Pro). Support for GPT, Gemini, and open-source models is coming soon."
+            />
+            <FaqItem
+              question="What happens if I cancel?"
+              answer="Your instances stop immediately. Your data is never retained after cancellation. No lock-in, no exit fees."
+            />
+            <FaqItem
+              question="How is this different from ChatGPT or Claude.ai?"
+              answer="ChatGPT and Claude are chat interfaces. Molinar Business is an always-on AI agent that runs 24/7, connects to Telegram, has persistent memory, and can take actions autonomously — like a real employee."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section className="py-20 sm:py-28 bg-muted/30 border-y">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Your business deserves an AI that works as hard as you do
@@ -456,6 +566,24 @@ function SecurityCard({
       <h3 className="font-semibold">{title}</h3>
       <p className="mt-2 text-sm text-muted-foreground leading-relaxed">{description}</p>
     </div>
+  );
+}
+
+function FaqItem({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  return (
+    <details className="group rounded-xl border bg-white p-6 cursor-pointer">
+      <summary className="flex items-center justify-between font-semibold text-foreground list-none">
+        {question}
+        <ChevronDown className="h-4 w-4 text-muted-foreground transition-transform group-open:rotate-180" />
+      </summary>
+      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{answer}</p>
+    </details>
   );
 }
 
