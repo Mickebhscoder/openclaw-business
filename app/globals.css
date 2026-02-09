@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html, body {
+  overscroll-behavior: none;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
