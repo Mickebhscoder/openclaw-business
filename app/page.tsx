@@ -71,14 +71,14 @@ export default async function LandingPage() {
               <span className="sm:hidden">Secure &middot; Isolated &middot; AWS</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
-              Run your business{' '}
+              The open source{' '}
               <br className="hidden sm:block" />
-              with a secure AI assistant.{' '}
+              alternative to{' '}
+              <a href="https://ai.com" target="_blank" rel="noopener noreferrer" className="underline decoration-2 underline-offset-4 hover:text-primary/80 transition-colors">ai.com</a>
             </h1>
             <p className="mt-6 text-lg sm:text-xl text-muted-foreground max-w-2xl mx-auto">
-              The world&apos;s most popular open-source AI agent, deployed in your own
-              isolated container on AWS. Handle clients, customers, and daily operations
-              through Telegram — without exposing your business data.
+              Deploy your own AI agent in 3 steps. Each agent runs in its own
+              isolated container on AWS. Open source, BYOK, and your keys never touch our database.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
