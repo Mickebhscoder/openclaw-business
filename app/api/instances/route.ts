@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
   }
 
   // Upsert organization
-  const { data: org } = await supabase
+  const { data: org, error: orgError } = await supabase
     .from('organizations')
     .upsert({
       stytch_org_id: auth.organization.organization_id,
@@ -48,7 +48,10 @@ export async function POST(request: NextRequest) {
     .select()
     .single();
 
-  if (!org) return NextResponse.json({ error: 'Failed to sync organization' }, { status: 500 });
+  if (orgError || !org) {
+    console.error('Org upsert failed:', orgError);
+    return NextResponse.json({ error: 'Failed to sync organization' }, { status: 500 });
+  }
 
   // Create instance record
   const { data: instance, error } = await supabase
