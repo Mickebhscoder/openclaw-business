@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { randomBytes } from 'crypto';
 import { getAuthenticatedMember } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 import { runOpenClawTask } from '@/lib/aws/ecs';
@@ -38,9 +39,11 @@ export async function POST(_request: NextRequest, { params }: { params: { id: st
   const telegramToken = await getSecret(`/openclaw/${org.id}/${id}/telegram-token`);
 
   // Build environment variables
+  const gatewayToken = randomBytes(32).toString('hex');
   const envVars: Record<string, string> = {
     ANTHROPIC_API_KEY: anthropicKey,
     OPENCLAW_GATEWAY_PORT: '18789',
+    OPENCLAW_GATEWAY_TOKEN: gatewayToken,
   };
   if (telegramToken) envVars.TELEGRAM_BOT_TOKEN = telegramToken;
   if (instance.system_prompt) envVars.SYSTEM_PROMPT = instance.system_prompt;
