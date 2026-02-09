@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Sidebar, SidebarContent, SidebarHeader, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarFooter } from '@/components/ui/sidebar';
-import { LayoutDashboard, Plus, LogOut, CreditCard } from 'lucide-react';
+import { LayoutDashboard, Plus, LogOut, CreditCard, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface DashboardSidebarProps {
@@ -19,6 +19,7 @@ export function DashboardSidebar({ organization, member }: DashboardSidebarProps
     { title: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
     { title: 'New Instance', href: '/dashboard/instances/new', icon: Plus },
     { title: 'Billing', href: '/dashboard/billing', icon: CreditCard },
+    { title: 'Community', href: 'https://discord.gg/khn8zNepXC', icon: MessageCircle, external: true },
   ];
 
   const handleLogout = async () => {
@@ -44,10 +45,17 @@ export function DashboardSidebar({ organization, member }: DashboardSidebarProps
           {items.map((item) => (
             <SidebarMenuItem key={item.href}>
               <SidebarMenuButton asChild isActive={pathname === item.href}>
-                <Link href={item.href}>
-                  <item.icon className="h-4 w-4" />
-                  <span>{item.title}</span>
-                </Link>
+                {(item as any).external ? (
+                  <a href={item.href} target="_blank" rel="noopener noreferrer">
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.title}</span>
+                  </a>
+                ) : (
+                  <Link href={item.href}>
+                    <item.icon className="h-4 w-4" />
+                    <span>{item.title}</span>
+                  </Link>
+                )}
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}

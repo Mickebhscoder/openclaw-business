@@ -50,6 +50,14 @@ export default async function LandingPage() {
             >
               Use Cases
             </Link>
+            <a
+              href="https://discord.gg/khn8zNepXC"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-gray-400 hover:text-white transition-colors hidden sm:inline"
+            >
+              Discord
+            </a>
             <Link
               href="/login"
               className="inline-flex items-center justify-center rounded-full text-sm font-medium h-9 px-5 py-2 bg-green-500 text-black shadow hover:bg-green-400 transition-colors"
@@ -377,7 +385,11 @@ export default async function LandingPage() {
             </div>
             <span>Molinar</span>
           </div>
-          <p>Built on <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">OpenClaw</a> — the open source AI agent framework</p>
+          <div className="flex items-center gap-6">
+            <a href="https://discord.gg/khn8zNepXC" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Discord</a>
+            <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">GitHub</a>
+          </div>
+          <p>Built on <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">OpenClaw</a></p>
         </div>
       </footer>
     </div>
