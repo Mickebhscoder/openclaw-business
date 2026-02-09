@@ -10,6 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
+import { KbdShortcut } from '@/components/kbd-shortcut';
 
 const steps = [
   { number: 1, label: 'Basics' },
@@ -156,7 +157,7 @@ export function CreateInstanceForm() {
               <p className="text-xs text-muted-foreground">Your key is encrypted and stored securely in AWS.</p>
             </div>
             <Button onClick={() => setStep(2)} disabled={!form.name || !form.anthropic_api_key}>
-              Next <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd>
+              Next <KbdShortcut />
             </Button>
           </CardContent>
         </Card>
@@ -201,7 +202,7 @@ export function CreateInstanceForm() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
-              <Button onClick={() => setStep(3)}>Next <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd></Button>
+              <Button onClick={() => setStep(3)}>Next <KbdShortcut /></Button>
             </div>
           </CardContent>
         </Card>
@@ -239,7 +240,7 @@ export function CreateInstanceForm() {
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
               <Button onClick={handleSubmit} disabled={loading}>
-                {loading ? 'Creating...' : <> Create &amp; Launch <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd></>}
+                {loading ? 'Creating...' : <> Create &amp; Launch <KbdShortcut /></>}
               </Button>
             </div>
           </CardContent>

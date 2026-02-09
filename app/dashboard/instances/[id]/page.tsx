@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -11,6 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { ArrowLeft, Play, Square, Trash2, Copy, Check } from 'lucide-react';
 import { useInstanceRealtime } from '@/hooks/use-instance-realtime';
+import { KbdShortcut, useCmdEnter } from '@/components/kbd-shortcut';
 
 const MODEL_NAMES: Record<string, string> = {
   'claude-sonnet-4-5-20250929': 'Claude Sonnet 4.5',
@@ -86,13 +87,15 @@ export default function InstanceDetailPage() {
     setActionLoading(false);
   };
 
-  const handleDelete = async () => {
+  const handleDelete = useCallback(async () => {
     setActionLoading(true);
     setDeleteDialogOpen(false);
     await fetch(`/api/instances/${params.id}`, { method: 'DELETE' });
     router.refresh();
     router.push('/dashboard');
-  };
+  }, [params.id, router]);
+
+  useCmdEnter(handleDelete, deleteDialogOpen && !actionLoading);
 
   if (loading) {
     return <InstanceSkeleton />;
@@ -147,7 +150,7 @@ export default function InstanceDetailPage() {
                 Cancel
               </Button>
               <Button variant="destructive" onClick={handleDelete} disabled={actionLoading}>
-                {actionLoading ? 'Deleting...' : 'Delete'}
+                {actionLoading ? 'Deleting...' : <> Delete <KbdShortcut /></>}
               </Button>
             </DialogFooter>
           </DialogContent>

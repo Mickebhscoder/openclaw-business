@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Bot, Plus } from 'lucide-react';
 import { InstanceCard } from '@/components/instance-card';
+import { NewInstanceShortcut } from '@/components/new-instance-shortcut';
 import type { OpenClawInstance } from '@/types/instance';
 
 export default async function DashboardPage() {
@@ -34,12 +35,7 @@ export default async function DashboardPage() {
           <h1 className="text-2xl font-bold">Your AI Agents</h1>
           <p className="text-muted-foreground">Manage your AI agent instances</p>
         </div>
-        <Button asChild>
-          <Link href="/dashboard/instances/new">
-            <Plus className="mr-2 h-4 w-4" />
-            New Instance
-          </Link>
-        </Button>
+        <NewInstanceShortcut />
       </div>
       {instances.length === 0 ? (
         <div className="text-center py-12 border rounded-lg bg-muted/50">

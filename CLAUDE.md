@@ -93,7 +93,7 @@ We use a simple `stytch_session` cookie set server-side, NOT the Stytch frontend
 
 ### Instance Lifecycle
 - Create: POST /api/instances -> stores in Supabase + secrets in SSM, **then auto-starts** (POST to start route before redirecting to detail page)
-- Start: POST /api/instances/[id]/start -> reads SSM secrets, calls ECS RunTask, generates ephemeral `OPENCLAW_GATEWAY_TOKEN` (required by entrypoint but not persisted), passes `TELEGRAM_DM_POLICY=open`, sets `setup_phase: 'provisioning'`
+- Start: POST /api/instances/[id]/start -> reads SSM secrets, calls ECS RunTask, generates ephemeral `OPENCLAW_GATEWAY_TOKEN` (required by entrypoint but not persisted), sets `setup_phase: 'provisioning'`
 - Stop: POST /api/instances/[id]/stop -> calls ECS StopTask, clears setup fields
 - Delete: DELETE /api/instances/[id] -> **stops running ECS task first**, then deletes Supabase row + SSM secrets
 - Detail page uses combined polling + Supabase Realtime; polls every 3s during setup, 5s when running
@@ -102,8 +102,8 @@ We use a simple `stytch_session` cookie set server-side, NOT the Stytch frontend
 ### Setup Phase Tracking
 During startup, `setup_phase` tracks: `provisioning` → `configuring` → `doctor` → `nginx` → `gateway` → `ready`. Phase only advances forward (never regresses). When `ready`, instance transitions to `status='running'` and `setup_phase` is set to `null` (fully done). The stepper is shown whenever `setup_phase` is non-null.
 
-### Telegram DM Policy
-Instances use `TELEGRAM_DM_POLICY=open`, which means the bot accepts all DM senders without requiring a pairing code. This eliminates the need for any manual pairing step. The user creates their bot via @BotFather (instructions shown in creation wizard Step 2), provides the token, and the bot works immediately once the instance is running. Access control (allowlists, pairing) can be added as a future feature.
+### Telegram Pairing
+Telegram uses the default `pairing` DM policy. When a user messages their bot for the first time, the bot replies with a pairing code. The user must run `openclaw pairing approve telegram <code>` to authorize their Telegram account. The `open` DM policy was attempted but requires `allowFrom: ["*"]` in the config file, which can't be set via environment variables alone. BotFather instructions are shown in creation wizard Step 2.
 
 ### SSM Secret Paths
 Secrets are stored at: `/openclaw/{org_id}/{instance_id}/{key_name}`
@@ -138,7 +138,7 @@ Three tables: `organizations`, `members`, `openclaw_instances`
 
 10. **Supabase server and browser clients MUST be in separate files**: `lib/supabase.ts` (server, service role key) and `lib/supabase-client.ts` (browser, anon key). NEVER put both in the same file — when a `'use client'` component imports from a file, Next.js bundles the entire file for the browser. If the server client is in that bundle, it tries to evaluate `process.env.SUPABASE_SERVICE_ROLE_KEY` (undefined client-side) and causes a blank screen / crash. Always import `supabaseClient` from `lib/supabase-client.ts` in client components.
 
-11. **Telegram DM policy is `open`**: No pairing step needed. The bot accepts all DM senders immediately. This is controlled by the `TELEGRAM_DM_POLICY` env var passed to the ECS task.
+11. **Telegram uses default `pairing` DM policy**: The `open` policy requires `allowFrom: ["*"]` in the config file, which can't be set via env vars. Default `pairing` works out of the box — user just needs to pair once.
 
 12. **`OPENCLAW_GATEWAY_TOKEN` is required by entrypoint**: OpenClaw's entrypoint script refuses to start without this env var. We generate a random token each start (`randomBytes(32).toString('hex')`) but don't persist it — it's ephemeral since we don't call the gateway API.
 
