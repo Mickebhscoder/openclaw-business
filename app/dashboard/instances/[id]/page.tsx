@@ -158,7 +158,7 @@ export default function InstanceDetailPage() {
 
       {/* Conditional: Setup stepper vs normal detail view */}
       {isSettingUp ? (
-        <SetupProgress instance={instance} onRefetch={refetch} />
+        <SetupProgress instance={instance} />
       ) : (
         <>
           <div className="grid gap-4 md:grid-cols-2">

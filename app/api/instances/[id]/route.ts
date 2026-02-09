@@ -57,12 +57,13 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
             instance.setup_phase = phase;
           }
 
-          // If ready → transition to running but KEEP setup_phase='ready' (awaiting user pairing)
+          // If ready → transition to running, setup complete
           if (phase === 'ready' || (newIdx > currentIdx && PHASE_ORDER[newIdx] === 'ready')) {
             newStatus = 'running';
-            updates.setup_phase = 'ready';
+            updates.setup_phase = null;
+            updates.setup_started_at = null;
             updates.started_at = new Date().toISOString();
-            instance.setup_phase = 'ready';
+            instance.setup_phase = null;
           }
 
           if (Object.keys(updates).length > 0) {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -70,7 +70,7 @@ export function CreateInstanceForm() {
     model: 'claude-sonnet-4-5-20250929',
   });
 
-  const handleSubmit = async () => {
+  const handleSubmit = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
@@ -94,7 +94,22 @@ export function CreateInstanceForm() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [form, router]);
+
+  const canAdvanceStep1 = form.name && form.anthropic_api_key;
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        if (step === 1 && canAdvanceStep1) setStep(2);
+        else if (step === 2) setStep(3);
+        else if (step === 3 && !loading) handleSubmit();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [step, canAdvanceStep1, loading, handleSubmit]);
 
   return (
     <div className="max-w-2xl mx-auto space-y-6">
@@ -141,7 +156,7 @@ export function CreateInstanceForm() {
               <p className="text-xs text-muted-foreground">Your key is encrypted and stored securely in AWS.</p>
             </div>
             <Button onClick={() => setStep(2)} disabled={!form.name || !form.anthropic_api_key}>
-              Next
+              Next <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd>
             </Button>
           </CardContent>
         </Card>
@@ -186,7 +201,7 @@ export function CreateInstanceForm() {
             </div>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setStep(1)}>Back</Button>
-              <Button onClick={() => setStep(3)}>Next</Button>
+              <Button onClick={() => setStep(3)}>Next <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd></Button>
             </div>
           </CardContent>
         </Card>
@@ -224,7 +239,7 @@ export function CreateInstanceForm() {
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setStep(2)}>Back</Button>
               <Button onClick={handleSubmit} disabled={loading}>
-                {loading ? 'Creating...' : 'Create & Launch'}
+                {loading ? 'Creating...' : <> Create &amp; Launch <kbd className="ml-2 text-[10px] px-1 py-0.5 rounded bg-primary-foreground/20 font-sans">&#8984;&#9166;</kbd></>}
               </Button>
             </div>
           </CardContent>

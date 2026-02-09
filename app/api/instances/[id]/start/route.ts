@@ -42,10 +42,13 @@ export async function POST(_request: NextRequest, { params }: { params: { id: st
   const gatewayToken = randomBytes(32).toString('hex');
   const envVars: Record<string, string> = {
     ANTHROPIC_API_KEY: anthropicKey,
-    OPENCLAW_GATEWAY_PORT: '18789',
     OPENCLAW_GATEWAY_TOKEN: gatewayToken,
+    OPENCLAW_GATEWAY_PORT: '18789',
   };
-  if (telegramToken) envVars.TELEGRAM_BOT_TOKEN = telegramToken;
+  if (telegramToken) {
+    envVars.TELEGRAM_BOT_TOKEN = telegramToken;
+    envVars.TELEGRAM_DM_POLICY = 'open';
+  }
   if (instance.system_prompt) envVars.SYSTEM_PROMPT = instance.system_prompt;
 
   // Launch ECS task

@@ -28,7 +28,7 @@ export async function getSecret(path: string): Promise<string | undefined> {
 export async function deleteSecret(path: string) {
   try {
     const command = new DeleteParameterCommand({ Name: path });
-    return ssm.send(command);
+    await ssm.send(command);
   } catch {
     // Parameter may not exist
   }
