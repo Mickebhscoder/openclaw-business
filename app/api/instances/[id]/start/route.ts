@@ -4,6 +4,8 @@ import { getAuthenticatedMember } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 import { runOpenClawTask } from '@/lib/aws/ecs';
 import { getSecret } from '@/lib/aws/ssm';
+import { hasAccess } from '@/lib/trial';
+import type { Organization } from '@/types/organization';
 
 export async function POST(_request: NextRequest, { params }: { params: { id: string } }) {
   const { id } = params;
@@ -12,11 +14,18 @@ export async function POST(_request: NextRequest, { params }: { params: { id: st
 
   const { data: org } = await supabase
     .from('organizations')
-    .select('id')
+    .select('*')
     .eq('stytch_org_id', auth.organization.organization_id)
     .single();
 
   if (!org) return NextResponse.json({ error: 'Not found' }, { status: 404 });
+
+  if (!hasAccess(org as Organization)) {
+    return NextResponse.json(
+      { error: 'Your trial has expired. Please upgrade to start instances.', code: 'TRIAL_EXPIRED' },
+      { status: 403 }
+    );
+  }
 
   const { data: instance } = await supabase
     .from('openclaw_instances')

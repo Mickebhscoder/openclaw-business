@@ -48,12 +48,32 @@ export default async function BillingPage() {
     );
   }
 
+  const trialEndsAt = org?.trial_ends_at ? new Date(org.trial_ends_at) : null;
+  const onTrial = trialEndsAt && trialEndsAt > new Date() && !org?.customer_id;
+  const trialExpired = trialEndsAt && trialEndsAt <= new Date() && !org?.customer_id;
+  const daysLeft = trialEndsAt ? Math.max(0, Math.ceil((trialEndsAt.getTime() - Date.now()) / (1000 * 60 * 60 * 24))) : 0;
+
   return (
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-bold">Billing</h1>
-        <p className="text-muted-foreground">Subscribe to start launching AI agents</p>
+        <p className="text-muted-foreground">
+          {trialExpired
+            ? 'Your free trial has expired. Upgrade to keep your agents running.'
+            : onTrial
+              ? `You're on a free trial — ${daysLeft} day${daysLeft !== 1 ? 's' : ''} remaining. Upgrade anytime for more agents and models.`
+              : 'Subscribe to start launching AI agents'}
+        </p>
       </div>
+      {trialExpired && (
+        <Card className="border-red-500/50 bg-red-500/10">
+          <CardContent className="pt-6">
+            <p className="text-sm text-red-700 dark:text-red-400">
+              ⚠️ Your trial ended. Your agents have been paused. Upgrade to resume service and unlock unlimited agents + Claude Sonnet.
+            </p>
+          </CardContent>
+        </Card>
+      )}
       <Pricing />
     </div>
   );
