@@ -2,8 +2,8 @@ terraform {
   required_version = ">= 1.0"
 
   backend "s3" {
-    bucket = "molinar-terraform-state"
-    key    = "openclaw-business/terraform.tfstate"
+    bucket = "your-terraform-state-bucket"
+    key    = "your-project/terraform.tfstate"
     region = "us-west-2"
   }
 
