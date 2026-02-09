@@ -65,9 +65,10 @@ export default async function LandingPage() {
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-violet-50" />
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
           <div className="text-center max-w-3xl mx-auto">
-            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 border border-indigo-100 px-4 py-1.5 text-sm text-indigo-700 mb-8">
-              <ShieldCheck className="h-3.5 w-3.5 text-indigo-500" />
-              <span>Secure &middot; Isolated &middot; Enterprise-grade AWS infrastructure</span>
+            <div className="inline-flex items-center gap-2 rounded-full bg-indigo-50 border border-indigo-100 px-4 py-1.5 text-sm text-indigo-700 mb-8 whitespace-nowrap">
+              <ShieldCheck className="h-3.5 w-3.5 text-indigo-500 flex-shrink-0" />
+              <span className="hidden sm:inline">Secure &middot; Isolated &middot; Enterprise-grade AWS infrastructure</span>
+              <span className="sm:hidden">Secure &middot; Isolated &middot; AWS</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-foreground">
               Run your business{' '}
