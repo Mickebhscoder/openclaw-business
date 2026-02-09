@@ -47,6 +47,7 @@ export async function POST(_request: NextRequest, { params }: { params: { id: st
   };
   if (telegramToken) {
     envVars.TELEGRAM_BOT_TOKEN = telegramToken;
+    envVars.TELEGRAM_DM_POLICY = 'open';
   }
   if (instance.system_prompt) envVars.SYSTEM_PROMPT = instance.system_prompt;
 

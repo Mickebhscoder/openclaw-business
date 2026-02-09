@@ -25,6 +25,23 @@ export async function runOpenClawTask(envVars: Record<string, string>) {
         {
           name: 'openclaw-agent',
           environment: Object.entries(envVars).map(([name, value]) => ({ name, value })),
+          // Override command to: (1) inject /etc/hosts for browser sidecar,
+          // (2) launch background patcher that sets allowFrom=["*"] in config
+          //     (required for dmPolicy=open, runs between configure and doctor),
+          // (3) exec the real entrypoint
+          command: [
+            'echo 127.0.0.1 browser >> /etc/hosts && ' +
+            '(CFG=/data/.openclaw/openclaw.json; ' +
+            'while [ ! -f "$CFG" ]; do sleep 0.1; done; ' +
+            'python3 -c "' +
+            'import json, sys; ' +
+            "f=sys.argv[1]; c=json.load(open(f)); " +
+            "t=c.get(\\\"channels\\\",{}).get(\\\"telegram\\\"); " +
+            "t and t.__setitem__(\\\"allowFrom\\\",[\\\"*\\\"]); " +
+            'json.dump(c,open(f,\\\"w\\\"),indent=2)' +
+            '" "$CFG") & ' +
+            'exec /app/scripts/entrypoint.sh',
+          ],
         },
       ],
     },
