@@ -20,7 +20,7 @@ provider "aws" {
 }
 
 module "openclaw" {
-  source     = "../../molinar_workspace/molinar/infra/modules/openclaw"
+  source     = "./modules/openclaw"
   vpc_id     = "vpc-REPLACE_ME"
   subnet_ids = ["subnet-REPLACE_ME_1", "subnet-REPLACE_ME_2"]
 }
@@ -31,4 +31,8 @@ output "cluster_arn" {
 
 output "security_group_id" {
   value = module.openclaw.security_group_id
+}
+
+output "task_definition_arn" {
+  value = module.openclaw.task_definition_arn
 }
