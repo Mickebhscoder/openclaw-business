@@ -103,8 +103,9 @@ export default function InstanceDetailPage() {
   const handleDelete = async () => {
     setActionLoading(true);
     setDeleteDialogOpen(false);
-    await fetch(`/api/instances/${params.id}`, { method: 'DELETE' });
+    fetch(`/api/instances/${params.id}`, { method: 'DELETE' });
     router.push('/dashboard');
+    router.refresh();
   };
 
   if (loading) {
