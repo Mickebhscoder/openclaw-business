@@ -20,11 +20,9 @@ import {
   Container,
 } from 'lucide-react';
 
-const shimmerStyle = {
-  background:
-    'linear-gradient(60deg, #f79533, #f37055, #ef4e7b, #a166ab, #5073b8, #1098ad, #07b39b, #6fba82)',
-  backgroundSize: '300% 300%',
-  animation: 'shimmer 3s ease infinite',
+const solidButtonStyle = {
+  background: '#ffffff',
+  color: '#000000',
 };
 
 export default async function LandingPage() {
@@ -76,7 +74,7 @@ export default async function LandingPage() {
             <Link
               href="/login"
               className="inline-flex items-center justify-center rounded-full text-sm font-semibold h-9 px-5 py-2 text-white shadow transition-transform hover:scale-105"
-              style={shimmerStyle}
+              style={solidButtonStyle}
             >
               Get Started
             </Link>
@@ -86,26 +84,16 @@ export default async function LandingPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        {/* Blur splotches */}
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background:
-              'linear-gradient(135deg, #2dd4bf 0%, #c084fc 100%)',
-            clipPath:
-              'polygon(10% 0%, 40% 0%, 65% 30%, 50% 70%, 15% 60%)',
-          }}
+        {/* Video background */}
+        <video
+          src="/multiverse.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 -z-10 h-full w-full object-cover"
         />
-        <div
-          className="absolute inset-0 opacity-15"
-          style={{
-            background:
-              'linear-gradient(225deg, #c084fc 0%, #2dd4bf 100%)',
-            clipPath:
-              'polygon(60% 10%, 100% 0%, 100% 50%, 80% 80%, 50% 50%)',
-          }}
-        />
-        <div className="absolute inset-0 bg-gray-950/60 backdrop-blur-3xl" />
+        <div className="absolute inset-0 bg-black/70" />
 
         <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32 w-full">
           <div className="text-center max-w-3xl mx-auto">
@@ -128,7 +116,7 @@ export default async function LandingPage() {
               <Link
                 href="/login"
                 className="inline-flex items-center justify-center rounded-full text-base font-semibold h-14 px-10 text-white shadow-2xl transition-transform hover:scale-105 gap-2 w-full sm:w-auto"
-                style={shimmerStyle}
+                style={solidButtonStyle}
               >
                 Start Free Trial
                 <ArrowRight className="h-5 w-5" />
@@ -373,7 +361,7 @@ export default async function LandingPage() {
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
                 <span
                   className="text-white text-xs font-semibold px-4 py-1 rounded-full"
-                  style={shimmerStyle}
+                  style={solidButtonStyle}
                 >
                   Most Popular
                 </span>
@@ -398,7 +386,7 @@ export default async function LandingPage() {
                 <Link
                   href="/login"
                   className="inline-flex items-center justify-center rounded-full text-sm font-semibold h-11 px-8 text-white shadow transition-transform hover:scale-105 w-full gap-2"
-                  style={shimmerStyle}
+                  style={solidButtonStyle}
                 >
                   Get Started
                   <ArrowRight className="h-4 w-4" />
@@ -433,7 +421,7 @@ export default async function LandingPage() {
             <Link
               href="/login"
               className="inline-flex items-center justify-center rounded-full text-base font-semibold h-14 px-10 text-white shadow-2xl transition-transform hover:scale-105 gap-2"
-              style={shimmerStyle}
+              style={solidButtonStyle}
             >
               Get Started Free
               <ArrowRight className="h-5 w-5" />
