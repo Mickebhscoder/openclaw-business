@@ -3,7 +3,6 @@ import { getAuthenticatedMember } from '@/lib/auth';
 import { redirect } from 'next/navigation';
 import {
   Bot,
-  Zap,
   Shield,
   ShieldCheck,
   ArrowRight,
@@ -13,10 +12,7 @@ import {
   Megaphone,
   ShoppingBag,
   GraduationCap,
-  Github,
-  Clock,
   Lock,
-  Server,
   KeyRound,
   Container,
   AlertTriangle,
