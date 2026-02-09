@@ -11,6 +11,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 import { KbdShortcut } from '@/components/kbd-shortcut';
+import type { Organization } from '@/types/organization';
 
 const steps = [
   { number: 1, label: 'Basics' },
@@ -63,6 +64,28 @@ export function CreateInstanceForm() {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [org, setOrg] = useState<Organization | null>(null);
+
+  const onTrial = org ? !org.customer_id && !!org.trial_ends_at && new Date(org.trial_ends_at) > new Date() : false;
+  const trialExpired = org ? !org.customer_id && !!org.trial_ends_at && new Date(org.trial_ends_at) <= new Date() : false;
+
+  useEffect(() => {
+    fetch('/api/organization')
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data) => {
+        if (data) setOrg(data);
+      })
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    if (trialExpired) router.push('/dashboard/billing');
+  }, [trialExpired, router]);
+
+  useEffect(() => {
+    if (onTrial) setForm((f) => ({ ...f, model: 'claude-haiku-4-5-20251001' }));
+  }, [onTrial]);
+
   const [form, setForm] = useState({
     name: '',
     anthropic_api_key: '',
@@ -227,15 +250,18 @@ export function CreateInstanceForm() {
             </div>
             <div className="space-y-2">
               <Label>Model</Label>
-              <Select value={form.model} onValueChange={(value) => setForm({ ...form, model: value })}>
+              <Select value={form.model} onValueChange={(value) => setForm({ ...form, model: value })} disabled={onTrial}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5</SelectItem>
+                  {!onTrial && <SelectItem value="claude-sonnet-4-5-20250929">Claude Sonnet 4.5</SelectItem>}
                   <SelectItem value="claude-haiku-4-5-20251001">Claude Haiku 4.5</SelectItem>
                 </SelectContent>
               </Select>
+              {onTrial && (
+                <p className="text-xs text-muted-foreground">Free trial includes Claude Haiku. <Link href="/dashboard/billing" className="text-primary hover:underline">Upgrade for Sonnet.</Link></p>
+              )}
             </div>
             <div className="flex gap-2">
               <Button variant="outline" onClick={() => setStep(2)}>Back</Button>

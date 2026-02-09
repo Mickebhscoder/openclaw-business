@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { getAuthenticatedMember } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
 import { putSecret } from '@/lib/aws/ssm';
+import { isOnTrial, isTrialExpired, TRIAL_DURATION_DAYS, TRIAL_MAX_INSTANCES, TRIAL_MODEL } from '@/lib/trial';
+import type { Organization } from '@/types/organization';
 
 // GET /api/instances - List instances for authenticated org
 export async function GET() {
@@ -53,6 +55,50 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Failed to sync organization' }, { status: 500 });
   }
 
+  const fullOrg = org as Organization;
+
+  // Trial logic: auto-start trial for new orgs without access
+  if (!fullOrg.has_access && !fullOrg.trial_ends_at && !fullOrg.customer_id) {
+    const now = new Date();
+    const trialEnd = new Date(now.getTime() + TRIAL_DURATION_DAYS * 24 * 60 * 60 * 1000);
+    const { data: updatedOrg, error: trialErr } = await supabase
+      .from('organizations')
+      .update({
+        trial_started_at: now.toISOString(),
+        trial_ends_at: trialEnd.toISOString(),
+        has_access: true,
+      })
+      .eq('id', fullOrg.id)
+      .select()
+      .single();
+    if (!trialErr && updatedOrg) Object.assign(fullOrg, updatedOrg);
+  }
+
+  // Check trial expired
+  if (isTrialExpired(fullOrg)) {
+    return NextResponse.json(
+      { error: 'Trial expired. Please upgrade to continue.', code: 'TRIAL_EXPIRED' },
+      { status: 403 }
+    );
+  }
+
+  // Trial instance limit
+  if (isOnTrial(fullOrg)) {
+    const { count } = await supabase
+      .from('openclaw_instances')
+      .select('*', { count: 'exact', head: true })
+      .eq('org_id', fullOrg.id);
+    if ((count ?? 0) >= TRIAL_MAX_INSTANCES) {
+      return NextResponse.json(
+        { error: 'Free trial is limited to 1 agent. Upgrade for more.', code: 'TRIAL_LIMIT' },
+        { status: 403 }
+      );
+    }
+  }
+
+  // Force model for trial users
+  const effectiveModel = isOnTrial(fullOrg) ? TRIAL_MODEL : (model || 'claude-sonnet-4-5-20250929');
+
   // Create instance record
   const { data: instance, error } = await supabase
     .from('openclaw_instances')
@@ -60,7 +106,7 @@ export async function POST(request: NextRequest) {
       org_id: org.id,
       name,
       system_prompt: system_prompt || null,
-      model: model || 'claude-sonnet-4-5-20250929',
+      model: effectiveModel,
     })
     .select()
     .single();

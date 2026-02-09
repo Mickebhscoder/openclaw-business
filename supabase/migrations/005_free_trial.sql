@@ -1,0 +1,3 @@
+ALTER TABLE organizations
+  ADD COLUMN trial_started_at TIMESTAMPTZ DEFAULT NULL,
+  ADD COLUMN trial_ends_at TIMESTAMPTZ DEFAULT NULL;

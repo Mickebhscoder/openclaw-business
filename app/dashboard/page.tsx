@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Bot, Plus } from 'lucide-react';
 import { InstanceCard } from '@/components/instance-card';
 import { NewInstanceShortcut } from '@/components/new-instance-shortcut';
+import { TrialBanner } from '@/components/trial-banner';
 import type { OpenClawInstance } from '@/types/instance';
 
 export default async function DashboardPage() {
@@ -30,6 +31,7 @@ export default async function DashboardPage() {
 
   return (
     <div className="space-y-6">
+      <TrialBanner />
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold">Your AI Agents</h1>
