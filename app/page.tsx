@@ -91,11 +91,12 @@ export default async function LandingPage() {
           loop
           muted
           playsInline
-          className="absolute inset-0 -z-10 h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover"
+          style={{ zIndex: 0 }}
         />
-        <div className="absolute inset-0 bg-black/70" />
+        <div className="absolute inset-0 bg-black/70" style={{ zIndex: 1 }} />
 
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32 w-full">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32 w-full" style={{ zIndex: 2 }}>
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/5 border border-white/10 px-4 py-1.5 text-sm text-gray-300 mb-8 whitespace-nowrap backdrop-blur-sm">
               <ShieldCheck className="h-3.5 w-3.5 text-green-400 flex-shrink-0" />
