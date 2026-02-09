@@ -68,8 +68,8 @@ export default async function LandingPage() {
           <div className="text-center max-w-3xl mx-auto">
             <div className="inline-flex items-center gap-2 rounded-full bg-white/10 border border-white/10 px-4 py-1.5 text-sm text-gray-300 mb-8 whitespace-nowrap backdrop-blur-sm">
               <ShieldCheck className="h-3.5 w-3.5 text-green-400 flex-shrink-0" />
-              <span className="hidden sm:inline">Secure &middot; Isolated &middot; Enterprise-grade AWS infrastructure</span>
-              <span className="sm:hidden">Secure &middot; Isolated &middot; AWS</span>
+              <span className="hidden sm:inline">Powered by OpenClaw &middot; Secure &middot; Isolated &middot; AWS</span>
+              <span className="sm:hidden">Powered by OpenClaw &middot; AWS</span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white">
               The open source{' '}
@@ -377,7 +377,7 @@ export default async function LandingPage() {
             </div>
             <span>Molinar</span>
           </div>
-          <p>Built by Molinar</p>
+          <p>Built on <a href="https://github.com/openclaw/openclaw" target="_blank" rel="noopener noreferrer" className="text-green-400 hover:text-green-300 transition-colors">OpenClaw</a> — the open source AI agent framework</p>
         </div>
       </footer>
     </div>
